@@ -15,17 +15,14 @@ async function getRandomPokemon() {
         document.getElementById('pokemon-id').innerText = `#${pokemonId}`;
         document.getElementById('pokemon-image').src = pokemonImage;
 
-        // Traducción de tipos
         const translatedTypes = pokemonTypes.map(type => translateType(type));
 
-        // Mostrar los tipos en la carta
         const typesElement = document.getElementById('pokemon-types');
-        typesElement.innerHTML = ''; // Limpiar tipos anteriores
-
+        typesElement.innerHTML = ''; 
         translatedTypes.forEach(type => {
             const typeSpan = document.createElement('span');
             typeSpan.className = 'type-badge';
-            typeSpan.style.backgroundColor = getTypeColor(type); // Usar el tipo traducido solo para la visualización
+            typeSpan.style.backgroundColor = getTypeColor(type); 
             typeSpan.innerText = capitalizeFirstLetter(type);
             typesElement.appendChild(typeSpan);
         });
