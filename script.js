@@ -6,17 +6,59 @@ async function getRandomPokemon() {
         const pokemonName = data.name;
         const pokemonId = data.id;
         const pokemonImage = data.sprites.front_default;
-        const pokemonType = data.types[0].type.name;
+        const pokemonTypes = data.types.map(type => type.type.name);
 
-        const cardColor = getTypeColor(pokemonType);
+        const cardColor = getTypeColor(pokemonTypes[0]);
 
         document.getElementById('pokemon-info').style.background = cardColor;
         document.getElementById('pokemon-name').innerText = `${capitalizeFirstLetter(pokemonName)}`;
         document.getElementById('pokemon-id').innerText = `#${pokemonId}`;
         document.getElementById('pokemon-image').src = pokemonImage;
+
+        // Traducción de tipos
+        const translatedTypes = pokemonTypes.map(type => translateType(type));
+
+        // Mostrar los tipos en la carta
+        const typesElement = document.getElementById('pokemon-types');
+        typesElement.innerHTML = ''; // Limpiar tipos anteriores
+
+        translatedTypes.forEach(type => {
+            const typeSpan = document.createElement('span');
+            typeSpan.className = 'type-badge';
+            typeSpan.style.backgroundColor = getTypeColor(type); // Usar el tipo traducido solo para la visualización
+            typeSpan.innerText = capitalizeFirstLetter(type);
+            typesElement.appendChild(typeSpan);
+        });
+
     } catch (error) {
         console.error('Error al obtener el Pokémon:', error);
     }
+}
+
+// Función para traducir los tipos
+function translateType(type) {
+    const typeTranslations = {
+        normal: 'normal',
+        fire: 'fuego',
+        water: 'agua',
+        electric: 'eléctrico',
+        grass: 'planta',
+        ice: 'hielo',
+        fighting: 'lucha',
+        poison: 'veneno',
+        ground: 'tierra',
+        flying: 'volador',
+        psychic: 'psíquico',
+        bug: 'bicho',
+        rock: 'roca',
+        ghost: 'fantasma',
+        dragon: 'dragón',
+        dark: 'siniestro',
+        steel: 'acero',
+        fairy: 'hada'
+    };
+
+    return typeTranslations[type] || 'desconocido';
 }
 
 function getTypeColor(type) {

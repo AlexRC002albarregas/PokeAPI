@@ -65,3 +65,12 @@ button {
     color: white;
     border-radius: 8px;
 }
+
+.type-badge {
+    display: inline-block;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
